@@ -14,12 +14,10 @@ import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
 class MainApplication : Application(), KodeinAware {
-
     override val kodein: Kodein by Kodein.lazy {
         import(androidXModule(this@MainApplication))
-        bind<MainDataBase>() with singleton { MainDataBase(context = instance()) }
+        bind<MainDataBase>() with singleton { MainDataBase.getDatabaseInstance(context = instance())}
         bind<MainRepositoryImplementation>() with singleton { MainRepositoryImplementation(db = instance()) }
         bind<MainViewModelFactory>() with provider { MainViewModelFactory(mainRepositoryImplementation = instance()) }
     }
-
 }

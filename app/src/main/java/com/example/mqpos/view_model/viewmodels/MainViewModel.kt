@@ -15,6 +15,7 @@ class MainViewModel(var mainRepositoryImpl: MainRepositoryImplementation) : View
     init{
         getGreetings()
     }
+
     fun getGreetings() {
         viewModelScope.launch {
             var mydata = mainRepositoryImpl.getGreetings()
