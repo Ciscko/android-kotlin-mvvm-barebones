@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,7 +21,9 @@ import org.kodein.di.generic.instance
 
 class MainActivity : ComponentActivity(), KodeinAware {
 
-    override val kodein by lazy { (application as MainApplication).kodein }
+    //override val kodein by lazy { (application as MainApplication).kodein }
+
+    override val kodein by org.kodein.di.android.kodein()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

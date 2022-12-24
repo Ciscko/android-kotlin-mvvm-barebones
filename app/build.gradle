@@ -61,8 +61,8 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
-
     def lifecycle_version = "2.3.0"
+
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -70,7 +70,7 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
     // Kodein dependencies
-    implementation 'org.kodein.di:kodein-di-generic-jvm:6.5.0'
-    implementation 'org.kodein.di:kodein-di-framework-android-x:5.2.0'
+    implementation "org.kodein.di:kodein-di-generic-jvm:6.3.3"
+    implementation "org.kodein.di:kodein-di-framework-android-x:6.3.3"
     implementation "androidx.appcompat:appcompat:1.0.2"
 }
