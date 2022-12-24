@@ -14,23 +14,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.mqpos.ui.theme.MQPOSTheme
-import com.example.qkpos.model.data.db.MainDataBase
-import com.example.qkpos.model.repositories.MainRepositoryImplementation
 import com.example.qkpos.view_model.viewmodels.MainViewModel
 import com.example.qkpos.view_model.viewmodels.MainViewModelFactory
 
-class MainActivity : ComponentActivity() {
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.instance
+
+class MainActivity : ComponentActivity(), KodeinAware {
+
+    override val kodein by lazy { (application as MainApplication).kodein }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val db = MainDataBase(context = this)
-        val repo = MainRepositoryImplementation(db = db)
-        val facto = MainViewModelFactory(repo)
-        //val mainVM = ViewModelProvider(this, facto).get(MainViewModel::class.java)
+        val facto : MainViewModelFactory by instance()
         val mainVM : MainViewModel by viewModels { facto }
-
 
         setContent {
             MQPOSTheme {
@@ -39,18 +37,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Techs(mainVM  = mainVM )
+                    Main(mainVM  = mainVM)
                 }
             }
         }
     }
+
+
+
 }
 
 @Composable
-fun Techs(mainVM : MainViewModel ){
-    var hopes = mainVM.greeting.observeAsState(listOf())
-    Text(hopes.value.toString())
+fun Main(mainVM : MainViewModel ){
+    var hopes = mainVM.greeting.observeAsState(listOf()).value
+    Text(hopes.toString())
 }
+
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
