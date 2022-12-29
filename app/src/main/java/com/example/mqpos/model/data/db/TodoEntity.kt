@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "todo")
 data class TodoEntity(
     @PrimaryKey(autoGenerate = true)
-    var id : Int,
+    var id : Int?,
 
     @ColumnInfo(name = "title")
     var title :String,

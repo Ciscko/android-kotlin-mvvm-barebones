@@ -24,8 +24,8 @@ abstract class MainDataBase: RoomDatabase(){
         private var databaseInstance : MainDataBase? = null
 
         fun getDatabaseInstance(context : Context) : MainDataBase {
+            var instance = databaseInstance
             synchronized(this){
-                    var instance = databaseInstance
                     if(instance == null){
                         instance = Room.databaseBuilder(
                             context.applicationContext,
@@ -33,7 +33,7 @@ abstract class MainDataBase: RoomDatabase(){
                             "main_database"
                         ).fallbackToDestructiveMigration().build()
                     }
-                    return instance
+                    return instance as MainDataBase
             }
         }
 

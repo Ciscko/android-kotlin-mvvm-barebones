@@ -1,18 +1,25 @@
 package com.example.mqpos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+
 import com.example.mqpos.ui.theme.MQPOSTheme
+import com.example.mqpos.view.composables.SearchTodo
+import com.example.mqpos.view.composables.TodoList
+import com.example.mqpos.view.composables.TodoPageTitle
+import com.example.mqpos.view.composables.todos
 import com.example.qkpos.view_model.viewmodels.MainViewModel
 import com.example.qkpos.view_model.viewmodels.MainViewModelFactory
 
@@ -42,26 +49,17 @@ class MainActivity : ComponentActivity(), KodeinAware {
             }
         }
     }
-
-
-
 }
 
 @Composable
 fun Main(mainVM : MainViewModel ){
-    var hopes = mainVM.greeting.observeAsState(listOf()).value
-    Text(hopes.toString())
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MQPOSTheme {
-        Greeting("Android")
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        TodoPageTitle(title = "TODOs 2023")
+        SearchTodo(onChange =  { textValue -> { Log.i("Value added", textValue)} })
+        TodoList(allTodos = todos())
     }
+
 }
+
